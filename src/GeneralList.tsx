@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 
 import "./GeneralList.scss";
 import LoadingArea from "./LoadingArea";
+import { User } from "./useApi";
 
 export interface TableColumn<T> {
   /** What is displayed as the header of this column */
@@ -44,6 +45,12 @@ export interface ListRowProps<T> extends Omit<GeneralListProps<T>, "data"> {
   index: number;
 }
 
+function getUserUrl(dataPoint: any): string {
+  let url = (dataPoint as User).html_url;
+  console.log(url);
+  return url;
+}
+
 /**
  * Renders a single row of the table.
  */
@@ -55,9 +62,24 @@ function ListRow<T>({ columns, dataPoint }: ListRowProps<T>) {
   return (
     <>
       <tr>
-        {columns.map((c, j) => (
+        {columns.map((c, j) =>
+          c.header == "Login" ? (
+            <td key={j}>
+              <a href={getUserUrl(dataPoint)}>
+                <div
+                  onClick={() => window.location.assign(getUserUrl(dataPoint))}
+                >
+                  {displayFn(c)(dataPoint)}
+                </div>
+              </a>
+            </td>
+          ) : (
+            <td key={j}>{displayFn(c)(dataPoint)}</td>
+          )
+        )}
+        {/* {columns.map((c, j) => (
           <td key={j}>{displayFn(c)(dataPoint)}</td>
-        ))}
+        ))} */}
       </tr>
     </>
   );
@@ -83,7 +105,7 @@ function GeneralList<T>({
   columns,
   data,
   isLoading,
-  style
+  style,
 }: GeneralListProps<T>) {
   return (
     <Table striped style={style}>

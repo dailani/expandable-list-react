@@ -3,6 +3,12 @@ import { useMemo } from "react";
 export interface User {
   login: string;
   avatar_url: string;
+  html_url: string; //added
+}
+
+export interface ExpandedUser {
+  //added
+  id: number;
 }
 
 export function useApi() {
@@ -14,7 +20,7 @@ export function useApi() {
         const result = await fetch(usersUrl).then((r) => r.json());
 
         return result as User[];
-      }
+      },
     }),
     []
   );

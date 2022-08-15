@@ -25,12 +25,12 @@ export default function App(): JSX.Element {
       columns={[
         {
           header: "Image",
-          display: (v) => <img src={v.avatar_url} width="30" alt={v.login} />
+          display: (v) => <img src={v.avatar_url} width="30" alt={v.login} />,
         },
         {
           header: "Login",
-          key: "login"
-        }
+          key: "login",
+        },
       ]}
     />
   );
