@@ -3,23 +3,33 @@ import { useMemo } from "react";
 export interface User {
   login: string;
   avatar_url: string;
-  html_url: string; //added
-}
-
-export interface ExpandedUser {
   //added
-  id: number;
+  html_url: string;
+  name: string;
+  company: string;
+  blog: string;
+  location: string;
+  hireable: string;
+  email: string;
 }
 
+//Updated API so it returns the expanded list of users data (...login , name , email ...)
 export function useApi() {
   const usersUrl = "https://api.github.com/users?per_page=10";
+  const userNameUrl = "https://api.github.com/users/";
 
   return useMemo(
     () => ({
       fetchUsers: async () => {
-        const result = await fetch(usersUrl).then((r) => r.json());
-
-        return result as User[];
+        //first we stream users of page 10
+        const usersJson = await fetch(usersUrl).then((r) => r.json());
+        let expandedUsers = [];
+        for (const user of usersJson) {
+          let url = userNameUrl + user.login;
+          expandedUsers.push(await fetch(url).then((r) => r.json()));
+        }
+        console.log(expandedUsers);
+        return expandedUsers as User[];
       },
     }),
     []
