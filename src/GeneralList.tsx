@@ -61,16 +61,12 @@ function ListRow<T>({ columns, dataPoint }: ListRowProps<T>) {
 
   return (
     <>
-      <tr>
+      <tr onClick={() => window.location.assign(getUserUrl(dataPoint))}>
         {columns.map((c, j) =>
           c.header == "Login" ? (
             <td key={j}>
               <a href={getUserUrl(dataPoint)}>
-                <div
-                  onClick={() => window.location.assign(getUserUrl(dataPoint))}
-                >
-                  {displayFn(c)(dataPoint)}
-                </div>
+                <div>{displayFn(c)(dataPoint)}</div>
               </a>
             </td>
           ) : (
