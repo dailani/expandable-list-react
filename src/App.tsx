@@ -7,6 +7,7 @@ export default function App(): JSX.Element {
   const { fetchUsers } = useApi();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  //added
 
   useEffect(() => {
     setIsLoading(true);

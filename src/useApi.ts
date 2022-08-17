@@ -24,6 +24,7 @@ export function useApi() {
         //first we stream users of page 10
         const usersJson = await fetch(usersUrl).then((r) => r.json());
         let expandedUsers = [];
+        //Than for each user we create a costum url so we can fetch the expanded user data
         for (const user of usersJson) {
           let url = userNameUrl + user.login;
           expandedUsers.push(await fetch(url).then((r) => r.json()));

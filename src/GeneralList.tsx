@@ -1,10 +1,11 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { Table } from "react-bootstrap";
 
 import "./GeneralList.scss";
 import LoadingArea from "./LoadingArea";
 import { User } from "./useApi";
-
+import { Descriptions } from "antd";
+import ExpandedRow from "./components/ExpandedRow";
 export interface TableColumn<T> {
   /** What is displayed as the header of this column */
   header: string;
@@ -45,23 +46,26 @@ export interface ListRowProps<T> extends Omit<GeneralListProps<T>, "data"> {
   index: number;
 }
 
+//added
 function getUserUrl(dataPoint: any): string {
   let url = (dataPoint as User).html_url;
   console.log(url);
   return url;
 }
 
+//added
+
 /**
  * Renders a single row of the table.
  */
-function ListRow<T>({ columns, dataPoint }: ListRowProps<T>) {
+function ListRow<T>({ columns, dataPoint }: ListRowProps<T>, index: number) {
   function displayFn<T>(c: TableColumn<T>) {
     return c.display ?? ((a) => (c.key ? a[c.key] : a));
   }
 
   return (
     <>
-      <tr>
+      <tr className="accordion-toggle">
         {columns.map((c, j) =>
           c.header == "Login" ? (
             <td key={j}>
@@ -73,9 +77,6 @@ function ListRow<T>({ columns, dataPoint }: ListRowProps<T>) {
             <td key={j}>{displayFn(c)(dataPoint)}</td>
           )
         )}
-        {/* {columns.map((c, j) => (
-          <td key={j}>{displayFn(c)(dataPoint)}</td>
-        ))} */}
       </tr>
     </>
   );
@@ -88,7 +89,10 @@ function ListBody<T>({ columns, data }: GeneralListProps<T>) {
   return (
     <tbody>
       {data.map((dataPoint, i) => (
-        <ListRow key={i} {...{ columns }} dataPoint={dataPoint} index={i} />
+        <>
+          <ListRow key={i} {...{ columns }} dataPoint={dataPoint} index={i} />
+          <ExpandedRow className={""}></ExpandedRow>
+        </>
       ))}
     </tbody>
   );
