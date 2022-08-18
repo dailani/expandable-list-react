@@ -5,7 +5,8 @@ import "./GeneralList.scss";
 import LoadingArea from "./LoadingArea";
 import { User } from "./useApi";
 import { Descriptions } from "antd";
-import ExpandedRow from "./components/ExpandedRow";
+import "bootstrap/js/src/collapse.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 export interface TableColumn<T> {
   /** What is displayed as the header of this column */
   header: string;
@@ -53,19 +54,24 @@ function getUserUrl(dataPoint: any): string {
   return url;
 }
 
-//added
-
 /**
  * Renders a single row of the table.
  */
-function ListRow<T>({ columns, dataPoint }: ListRowProps<T>, index: number) {
+function ListRow<T>({ columns, dataPoint, index }: ListRowProps<T>) {
   function displayFn<T>(c: TableColumn<T>) {
     return c.display ?? ((a) => (c.key ? a[c.key] : a));
   }
 
   return (
     <>
-      <tr className="accordion-toggle">
+      <tr
+        className="tableRow"
+        role="button"
+        data-bs-toggle="collapse"
+        data-bs-target={"#multiCollapseExample" + index}
+        aria-expanded="true"
+        aria-controls={"multiCollapseExample" + index}
+      >
         {columns.map((c, j) =>
           c.header == "Login" ? (
             <td key={j}>
@@ -78,6 +84,15 @@ function ListRow<T>({ columns, dataPoint }: ListRowProps<T>, index: number) {
           )
         )}
       </tr>
+      <div
+        className="collapse multi-collapse"
+        id={"multiCollapseExample" + index}
+      >
+        <Descriptions.Item label="This is the label">
+          {" "}
+          This is an description Item
+        </Descriptions.Item>
+      </div>
     </>
   );
 }
@@ -85,13 +100,13 @@ function ListRow<T>({ columns, dataPoint }: ListRowProps<T>, index: number) {
 /**
  * Renders the table body
  */
+//<ExpandedRow className={""}></ExpandedRow>
 function ListBody<T>({ columns, data }: GeneralListProps<T>) {
   return (
     <tbody>
       {data.map((dataPoint, i) => (
         <>
           <ListRow key={i} {...{ columns }} dataPoint={dataPoint} index={i} />
-          <ExpandedRow className={""}></ExpandedRow>
         </>
       ))}
     </tbody>
@@ -108,7 +123,7 @@ function GeneralList<T>({
   style,
 }: GeneralListProps<T>) {
   return (
-    <Table striped style={style}>
+    <Table striped style={style} hover>
       <ListHeader columns={columns} />
       <LoadingArea isLoading={isLoading || false}>
         {data.length ? (

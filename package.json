@@ -6,10 +6,10 @@
   "main": "src/index.tsx",
   "dependencies": {
     "antd": "^4.22.6",
-    "bootstrap": "5.1.3",
+    "bootstrap": "^5.2.0",
     "node-sass": "^7.0.1",
     "react": "18.0.0",
-    "react-bootstrap": "2.4.0",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "18.0.0",
     "react-scripts": "4.0.3"
   },

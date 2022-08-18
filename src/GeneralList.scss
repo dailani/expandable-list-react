@@ -1,28 +1,22 @@
-.accordion-toggle {
-  height: 30px;
-  background-color: #eee;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  max-height: 0;
-  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-}
+// .accordion-toggle {
+//   background-color: #eee;
+//   cursor: pointer;
+//   padding: 18px;
+//   width: 100%;
+//   border: none;
+//   text-align: left;
+//   outline: none;
+//   max-height: 0;
+//   transition: all 0.1s cubic-bezier(1, 0, 1, 0);
+// }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active,
-.accordion-toggle:hover {
-  background-color: #ccc;
-}
-
-.accordion-toggle-show {
-  height: auto;
-  max-height: 9999;
-  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-}
-
-.expandedRow {
-  visibility: hi;
+// /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+// .active,
+// .accordion-toggle:hover {
+//   background-color: #ccc;
+// }
+.collapse {
+  &:not(.show) {
+    display: none;
+  }
 }

@@ -2,7 +2,7 @@ import "./styles.scss";
 import GeneralList from "./GeneralList";
 import { useApi, User } from "./useApi";
 import { useEffect, useState } from "react";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 export default function App(): JSX.Element {
   const { fetchUsers } = useApi();
   const [users, setUsers] = useState<User[]>([]);
