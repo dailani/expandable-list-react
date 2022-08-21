@@ -24,9 +24,7 @@ For the main task, implement a new functionality: Make each row of the table exp
 
 The user should be able to click on each row, the row expands and shows a new component which can be customized through the `column` config of the table. If the user clicks again on the row, it collapses again.
 
-In this expanded state, show more information about the user, for example their name, bio or public email address. You can get this data by calling `https://api.github.com/users/USERNAME`.
-
-For an example of the result, see `expandable-list-example.jpg` next to this file.
+In this expanded state, show more information about the user, for example their name, bio or public email address. You can get this data by calling ``. https://api.github.com/users/USERNAME For an example of the result, see `expandable-list-example.jpg` next to this file.
 
 ## Notes
 

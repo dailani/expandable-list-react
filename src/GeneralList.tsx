@@ -7,6 +7,7 @@ import { User } from "./useApi";
 import { Descriptions } from "antd";
 import "bootstrap/js/src/collapse.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ExpandedRow from "./components/ExpandedRow";
 export interface TableColumn<T> {
   /** What is displayed as the header of this column */
   header: string;
@@ -50,7 +51,6 @@ export interface ListRowProps<T> extends Omit<GeneralListProps<T>, "data"> {
 //added
 function getUserUrl(dataPoint: any): string {
   let url = (dataPoint as User).html_url;
-  console.log(url);
   return url;
 }
 
@@ -84,15 +84,20 @@ function ListRow<T>({ columns, dataPoint, index }: ListRowProps<T>) {
           )
         )}
       </tr>
-      <div
-        className="collapse multi-collapse"
-        id={"multiCollapseExample" + index}
-      >
-        <Descriptions.Item label="This is the label">
-          {" "}
-          This is an description Item
-        </Descriptions.Item>
-      </div>
+      {columns.map(
+        (c, j) =>
+          c.header == "Image" && (
+            <div
+              className="collapse multi-collapse"
+              id={"multiCollapseExample" + index}
+            >
+              {console.log(
+                "The original with index " + index + JSON.stringify(dataPoint)
+              )}
+              <ExpandedRow dataPoint={dataPoint}></ExpandedRow>
+            </div>
+          )
+      )}
     </>
   );
 }

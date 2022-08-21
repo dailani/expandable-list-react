@@ -29,7 +29,6 @@ export function useApi() {
           let url = userNameUrl + user.login;
           expandedUsers.push(await fetch(url).then((r) => r.json()));
         }
-        console.log(expandedUsers);
         return expandedUsers as User[];
       },
     }),
